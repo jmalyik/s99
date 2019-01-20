@@ -1,0 +1,36 @@
+// http://techs.studyhorror.com/gradle-scala-eclipse-project-i-181
+
+apply plugin: 'scala'
+apply plugin: 'eclipse'
+
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+test {
+    testLogging.showStandardStreams = true
+}
+
+
+repositories{
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies{
+    compile 'org.slf4j:slf4j-api:1.7.5'
+    compile "org.scala-lang:scala-library:2.11.8"
+    testCompile 'org.scalatest:scalatest_2.11:3.0.5'
+    testCompile "junit:junit:4.12"
+}
+
+jar {
+   baseName = 'analytics'
+   from('src/main/scala') {
+      include 'config/**/*.xml'
+   }
+
+   manifest {
+       attributes 'Implementation-Title': 'S-99: Ninety-Nine Scala Problems Implementation', 'Implementation-Version': version
+   }
+}
