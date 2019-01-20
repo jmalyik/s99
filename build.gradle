@@ -23,14 +23,3 @@ dependencies{
     testCompile 'org.scalatest:scalatest_2.11:3.0.5'
     testCompile "junit:junit:4.12"
 }
-
-jar {
-   baseName = 'analytics'
-   from('src/main/scala') {
-      include 'config/**/*.xml'
-   }
-
-   manifest {
-       attributes 'Implementation-Title': 'S-99: Ninety-Nine Scala Problems Implementation', 'Implementation-Version': version
-   }
-}
