@@ -1,5 +1,3 @@
-// TODO: scalatest
-
 /**
  * http://aperiodic.net/phil/scala/s-99/
  * 
@@ -124,7 +122,8 @@ object S99 {
       else
         (l.size, l.head)
     })  
-  }  
+  }
+  
   /**
    * P12 
    */
@@ -135,6 +134,7 @@ object S99 {
     }
     inp.foldLeft(List[T]())((acc, pair) => add(acc, pair))
   }
+  
   /**
    * P13 
    */
@@ -166,6 +166,7 @@ object S99 {
   def drop[T](n:Int, inp:List[T]):List[T]={
     inp.zipWithIndex.filter(item => (item._2 - 2) % n != 0).map(item => item._1)   
   }
+  
   /**
    * P17
    */
@@ -176,5 +177,33 @@ object S99 {
       case _ => split(n - 1, inp.tail, (out._1 ++ List(inp.head),out._2))
     }
     split(n, inp, (List[T](),List[T]()))
-  }  
+  }
+  
+  /**
+   * P18
+   */
+  def slice[T](from:Int, to:Int, inp:List[T]):List[T]={
+    inp.drop(from).take(to - from)
+  }
+  
+  /**
+   * P19
+   */
+  def rotate[T](n:Int, inp:List[T]):List[T]= {
+    if(n > 0){
+      rotate(n - 1, inp.tail ++ List(inp.head))
+    }else if(n < 0){
+      rotate(n + 1, List(inp.last) ++ inp.take(inp.size - 1))
+    }else{
+      inp
+    }
+  }
+  
+  /**
+   * P20
+   */
+  def removeAt[T](pos:Int, inp:List[T]):(List[T], T)={
+    val splitted = inp.splitAt(pos)
+    (splitted._1 ++ splitted._2.tail, splitted._2.head)
+  }
 }  
