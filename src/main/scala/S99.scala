@@ -206,4 +206,42 @@ object S99 {
     val splitted = inp.splitAt(pos)
     (splitted._1 ++ splitted._2.tail, splitted._2.head)
   }
-}  
+  
+  /**
+   * P21
+   */
+  def insertAt[T](newItem:T, pos:Int, inp:List[T]):List[T]={
+    val splitted = inp.splitAt(pos)
+    splitted._1 ++ List(newItem) ++ splitted._2
+  }
+  
+  /**
+   * P22
+   */
+  def range(start:Int, end:Int):List[Int]={
+     if(start < end){
+       start :: range(start + 1, end)
+     }else{
+       List(start)
+     }
+  }
+  
+  /**
+   * P23
+   */
+  def randomSelect[T](n:Int, inp:List[T]):List[T]= n match {
+    case 0 => Nil
+    case _ => {
+      val r = scala.util.Random
+      List(inp(r.nextInt(inp.size))) ++ randomSelect(n - 1, inp)
+    }
+  }
+  
+  /**
+   * P24
+   */
+  def lotto(n:Int, end:Int):List[Int]= {
+    val range = List.range(1, end + 1)
+    randomSelect(n, range)
+  }
+}

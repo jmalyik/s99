@@ -125,5 +125,42 @@ class N99ScalaTest extends FunSuite {
    test("S99.P20") {
      myAssert(S99.removeAt(1, List('a, 'b, 'c, 'd)), (List('a, 'c, 'd),'b))
      println("P20 OK")
+   }
+   
+   test("S99.P21") {
+     myAssert(S99.insertAt('new, 1, List('a, 'b, 'c, 'd)), List('a, 'new, 'b, 'c, 'd))
+     println("P21 OK")
    }   
+   
+   test("S99.P22") {
+     myAssert(S99.range(4,9), List(4, 5, 6, 7, 8, 9))
+     println("P22 OK")
+   }
+   
+   test("S99.P23") {
+     val inp = List('a, 'b, 'c, 'd, 'f, 'g, 'h)
+     val ret = S99.randomSelect(3, inp)
+     myAssert(ret.size, 3)
+     for(r <- ret){
+       assert(inp.contains(r))
+     }
+     println("P23 OK")
+   }   
+
+   test("S99.P24") {
+     val inp = List.range(1, 6)
+     val ret = S99.lotto(5, 5)
+     myAssert(ret.size, 5)
+     for(r <- ret){
+       try{
+         assert(inp.contains(r))
+       }catch{
+         case e:TestFailedException => {
+           println(e.getMessage())
+           throw e
+         }
+       }
+     }
+     println("P24 OK")
+   }
 }
