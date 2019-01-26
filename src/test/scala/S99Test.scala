@@ -196,6 +196,8 @@ class N99ScalaTest extends FunSuite {
      val inp = List("Aldo", "Beat", "Carla", "David", "Evi", "Flip", "Gary", "Hugo", "Ida")
      val ret = S99.group3(inp)
      myAssert(ret.size, 1260) // 9! / (3! * 7!) * 7! / (3! * 4!)
+     val ret2 = S99.group(List(2,2,5), inp)
+     myAssert(ret2.size, 756) // 9! / (3! * 7!) * 7! / (2! * 5!)
      println("P27 OK")
    }
 }
