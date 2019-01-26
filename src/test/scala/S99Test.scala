@@ -163,4 +163,33 @@ class N99ScalaTest extends FunSuite {
      }
      println("P24 OK")
    }
+   
+   test("S99.P25-1") {
+     val inp = List.range(1, 6)
+     val ret = S99.randomPermute(inp)
+     myAssert(ret.sorted, inp)
+     println("P25-1 OK")
+   }
+   
+   test("S99.P25-2") {
+     val inp = List.range(1, 6)
+     val ret = S99.randomPermute(inp)
+     myAssert(ret.sorted, inp)
+     println("P25-2 OK")
+   }
+
+   test("S99.P26") {
+     val ret = S99.combinations(2, List('a, 'b, 'c))
+     myAssert(ret, List(List('a,'b), List('a,'c), List('b,'c)))
+     myAssert(ret.size, 3)
+     val ret2 = S99.combinations(3, List('a, 'b, 'c, 'd))
+     myAssert(ret2, List(
+         List('a, 'b, 'c), List('a,'b, 'd),
+         List('a, 'c, 'd),
+         List('b, 'c, 'd)
+         ))
+     myAssert(ret2.size, 4)
+     println("P26 OK")
+   }
+   
 }

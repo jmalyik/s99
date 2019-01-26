@@ -233,7 +233,8 @@ object S99 {
     case 0 => Nil
     case _ => {
       val r = scala.util.Random
-      List(inp(r.nextInt(inp.size))) ++ randomSelect(n - 1, inp)
+      val res = removeAt(r.nextInt(inp.size), inp)
+      List(res._2) ++ randomSelect(n - 1, res._1)
     }
   }
   
@@ -244,4 +245,54 @@ object S99 {
     val range = List.range(1, end + 1)
     randomSelect(n, range)
   }
-}
+  
+  /**
+   * P25 v1
+   */
+  def randomPermute[T](inp:List[T]):List[T]= {
+      randomSelect(inp.size, inp)
+  }
+  /**
+   * P25 v2
+   */
+  def randomPermute2[T](inp:List[T]):List[T]= inp match {
+    case Nil => Nil
+    case List(x) => List(x)
+    case x::xs => {
+      val selected = randomSelect(1, inp)
+      val slices = inp.splitAt(inp.indexOf(selected.head))
+       selected ++ randomPermute(slices._1 ++ slices._2.tail)
+    }
+  }
+  
+  /**
+   * P26
+   */
+  class Tree[T](var level:Int, val items:List[T], var inp:List[T]){
+      def getDirectChildren():List[Tree[T]]={
+        inp.zipWithIndex.map(indexed => {
+          // inp.take(indexed._2) ++ inp.drop(indexed._2 + 1) => drop the nth item
+          new Tree(level + 1, items ++ List(indexed._1), inp.take(indexed._2) ++ inp.drop(indexed._2 + 1))
+        })
+      }
+      
+      def getChildrenAtLevel(childLevel: Int):List[Tree[T]]={
+        if(childLevel == level){
+          getDirectChildren()
+        }else{
+          getDirectChildren().map(_.getChildrenAtLevel(childLevel)).flatten
+        }
+      }
+      
+      def sortedItems():List[T]={
+        items.sortBy(_.toString)
+      }
+  }
+  
+  def combinations[T](n:Int, inp:List[T]):List[List[T]]= {
+    inp.zipWithIndex.map(indexed =>  
+      new Tree(2, List(indexed._1), inp.take(indexed._2) ++ inp.drop(indexed._2 + 1))
+    ).map(treeNode => treeNode.getChildrenAtLevel(n))
+    .flatten.map(n => n.sortedItems).toSet.toList
+  }
+}  
