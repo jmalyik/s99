@@ -277,7 +277,7 @@ object S99 {
       }
       
       def getChildrenAtLevel(childLevel: Int):List[Tree[T]]={
-        if(childLevel == level){
+        if(level == (childLevel - 1)){
           getDirectChildren()
         }else{
           getDirectChildren().map(_.getChildrenAtLevel(childLevel)).flatten
@@ -291,7 +291,7 @@ object S99 {
   
   def combinations[T](n:Int, inp:List[T]):List[List[T]]= {
     inp.zipWithIndex.map(indexed =>  
-      new Tree(2, List(indexed._1), inp.take(indexed._2) ++ inp.drop(indexed._2 + 1))
+      new Tree(1, List(indexed._1), inp.take(indexed._2) ++ inp.drop(indexed._2 + 1))
     ).map(treeNode => treeNode.getChildrenAtLevel(n))
     .flatten.map(n => n.sortedItems).toSet.toList
   }
