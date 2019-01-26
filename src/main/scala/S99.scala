@@ -295,4 +295,17 @@ object S99 {
     ).map(treeNode => treeNode.getChildrenAtLevel(n))
     .flatten.map(n => n.sortedItems).toSet.toList
   }
+  
+  /**
+   * P27
+   */
+  def group3(inp:List[String]):List[List[List[String]]]= {
+   val listOfFirstTwoGroups:List[(List[String], List[List[String]])] = 
+     combinations(2, inp).map(groupA => (groupA, combinations(3, inp.filterNot(groupA.contains(_)))))
+   val listOfFirstTwoGroupsFlatten:List[(List[String], List[String])] = listOfFirstTwoGroups.flatMap(t1 => 
+     t1._2.map(secondGroup => (t1._1, secondGroup))
+   )
+   listOfFirstTwoGroupsFlatten.map(t2 => List(t2._1) ++ List(t2._2) ++ 
+       List(inp.filterNot(inpItem => t2._1.contains(inpItem) || t2._2.contains(inpItem))))
+  }
 }  
