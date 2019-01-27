@@ -200,4 +200,20 @@ class N99ScalaTest extends FunSuite {
      myAssert(ret2.size, 756) // 9! / (3! * 7!) * 7! / (2! * 5!)
      println("P27 OK")
    }
+   
+   test("S99.P28-1") {
+     val inp = List(List('a, 'b, 'c), List('d, 'e), List('f, 'g, 'h), List('d, 'e), List('i, 'j, 'k, 'l), List('m, 'n), List('o))
+     val ret = S99.lsort(inp)
+     myAssert(ret, List(List('o), List('d, 'e), List('d, 'e), List('m, 'n), List('a, 'b, 'c), List('f, 'g, 'h), List('i, 'j, 'k, 'l)))
+     myAssert(ret.size, inp.size)
+     println("P28-1 OK")
+   }   
+   
+   test("S99.P28-2") {
+     val inp = List(List('a, 'b, 'c), List('d, 'e), List('f, 'g, 'h), List('d, 'e), List('i, 'j, 'k, 'l), List('m, 'n), List('o))
+     val ret = S99.lsortFreq(inp)
+     myAssert(ret, List(List('i, 'j, 'k, 'l), List('o), List('a, 'b, 'c), List('f, 'g, 'h), List('d, 'e), List('d, 'e), List('m, 'n)))
+     myAssert(ret.size, inp.size)
+     println("P28-2 OK")
+   } 
 }

@@ -300,13 +300,7 @@ object S99 {
    * P27
    */
   def group3(inp:List[String]):List[List[List[String]]]= {
-   val listOfFirstTwoGroups:List[(List[String], List[List[String]])] = 
-     combinations(2, inp).map(groupA => (groupA, combinations(3, inp.filterNot(groupA.contains(_)))))
-   val listOfFirstTwoGroupsFlatten:List[(List[String], List[String])] = listOfFirstTwoGroups.flatMap(t1 => 
-     t1._2.map(secondGroup => (t1._1, secondGroup))
-   )
-   listOfFirstTwoGroupsFlatten.map(t2 => List(t2._1) ++ List(t2._2) ++ 
-       List(inp.filterNot(inpItem => t2._1.contains(inpItem) || t2._2.contains(inpItem))))
+    group(List(2,3,4),inp)
   }
   
   def group(config:List[Int], inp:List[String]):List[List[List[String]]]= {
@@ -318,4 +312,16 @@ object S99 {
    listOfFirstTwoGroupsFlatten.map(t2 => List(t2._1) ++ List(t2._2) ++ 
        List(inp.filterNot(inpItem => t2._1.contains(inpItem) || t2._2.contains(inpItem))))
   }
+  
+  /**
+   * P28
+   */
+  def lsort[T](inp:List[List[T]]):List[List[T]]= {
+    inp.sortBy(_.size)
+  }
+  
+  def lsortFreq[T](inp:List[List[T]]):List[List[T]]= {
+    val freqs = inp.map(inp => (inp.size , 1)).groupBy(_._1).mapValues(listValue => listValue.map(_._2).sum)
+    inp.sortWith((a,b) => freqs(a.size) < freqs(b.size))
+  }  
 }  
